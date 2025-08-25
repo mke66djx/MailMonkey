@@ -1,23 +1,29 @@
-﻿# Python
-__pycache__/
-*.pyc
-.venv/
-.env
-.pytest_cache/
+﻿# Generated campaign runs (keep these out of Git)
+Campaign_*/
+Campaign_*
 
-# Windows
-Thumbs.db
-desktop.ini
-
-# Project outputs (generated)
+# Outputs
 BatchLetterFiles/
 Singles/
 *.pdf
 *.log
 tests_sandbox/
 
-# Private lists (remove if you want them tracked)
+# Private source lists (remove if you want to track them)
 PropertyLists/
 
-# Binaries / tools (remove this if you want to commit tools)
+# Python / Windows cruft
+__pycache__/
+*.pyc
+.venv/
+.env
+.pytest_cache/
+Thumbs.db
+desktop.ini
+
+# Generated trackers (do NOT commit)
+MasterCampaignTracker/
+MasterCampaignTracker/**
+
+# Misc binaries/tools
 *.exe
