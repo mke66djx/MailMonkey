@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mailmonkey"
+version = "0.1.0"
+description = "Direct-mail campaign runner (build -> generate -> finalize)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["typer>=0.12"]
+
+[project.scripts]
+mailmonkey = "mailmonkey.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
