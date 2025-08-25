@@ -1,0 +1,23 @@
+﻿# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.pytest_cache/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Project outputs (generated)
+BatchLetterFiles/
+Singles/
+*.pdf
+*.log
+tests_sandbox/
+
+# Private lists (remove if you want them tracked)
+PropertyLists/
+
+# Binaries / tools (remove this if you want to commit tools)
+*.exe
