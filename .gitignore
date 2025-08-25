@@ -1,6 +1,7 @@
 ﻿# Generated campaign runs (keep these out of Git)
 Campaign_*/
 Campaign_*
+OlderFiles/
 
 # Outputs
 BatchLetterFiles/
@@ -24,6 +25,8 @@ desktop.ini
 # Generated trackers (do NOT commit)
 MasterCampaignTracker/
 MasterCampaignTracker/**
+
+MyCheatSheet.txt
 
 # Misc binaries/tools
 *.exe
