@@ -32,3 +32,4 @@ MyCheatSheet.txt
 *.exe
 .idea/
 .vscode/
+src/mailmonkey.egg-info/
