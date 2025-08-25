@@ -23,8 +23,8 @@
 ```text
 BuildMasterCampaignList_v4_MAILZIPFirst_TIMEGAP.py   # Builder with time filters (recommended)
 BuildMasterCampaignList_v4_MAILZIPFirst.py           # Builder without time filters
-direct_mail_batch_por_POR_KEEP_FIXINDENT.py          # Letter generator
-FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py  # Finalizer + recovery (recommended)
+generate_letters.py          # Letter generator
+finalize_or_rebuild.py  # Finalizer + recovery (recommended)
 
 MasterCampaignTracker\
   MasterPropertyCampaignTracker.csv   # 1 row per (PropertyAddress, OwnerName)
@@ -85,7 +85,7 @@ Same as above **without** the time-based filters. Still uses mailing ZIP first a
 
 ---
 
-### C) Generator — `direct_mail_batch_por_POR_KEEP_FIXINDENT.py`
+### C) Generator — `generate_letters.py`
 **Purpose:** Generate the combined letters PDF and per-row mapping referencing your chosen template ID.
 
 **Outputs into the current** `Campaign_<N>_<MonYYYY>\` **folder:**
@@ -98,7 +98,7 @@ Same as above **without** the time-based filters. Still uses mailing ZIP first a
 
 ---
 
-### D) Finalizer + Recovery — `FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py` *(recommended)*
+### D) Finalizer + Recovery — `finalize_or_rebuild.py` *(recommended)*
 **Purpose:** Append the campaign’s executed log, update the master tracker (idempotent), rebuild ZIP5 tally, and support full recovery by scanning all campaign folders.
 
 **Tracker schema** *(per `(PropertyAddress, OwnerName)`)*  
@@ -138,7 +138,7 @@ python BuildMasterCampaignList_v4_MAILZIPFirst.py ^
 **2) Generate letters (combined only):**
 ```bat
 cd "C:\Users\Edit Beluli\Desktop\MailMonkey\Campaign_1_Aug2025"
-python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
+python ..\generate_letters.py ^
   --csv "campaign_master.csv" ^
   --outdir "Singles" ^
   --combine-out "letters_batch.pdf" ^
@@ -154,7 +154,7 @@ python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
 **3) Finalize:**
 ```bat
 cd "C:\Users\Edit Beluli\Desktop\MailMonkey"
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_1_Aug2025" ^
   --write-marker
 ```
@@ -175,7 +175,7 @@ python BuildMasterCampaignList_v4_MAILZIPFirst.py ^
 **5) Generate & finalize:**
 ```bat
 cd "C:\Users\Edit Beluli\Desktop\MailMonkey\Campaign_2_Aug2025"
-python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
+python ..\generate_letters.py ^
   --csv "campaign_master.csv" ^
   --outdir "Singles" ^
   --combine-out "letters_batch.pdf" ^
@@ -188,7 +188,7 @@ python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
   --email "eabeluli@gmail.com"
 
 cd "C:\Users\Edit Beluli\Desktop\MailMonkey"
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_2_Aug2025" ^
   --write-marker
 ```
@@ -223,28 +223,28 @@ python BuildMasterCampaignList_v4_MAILZIPFirst_TIMEGAP.py ^
 
 **Normal finalize**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_5_Aug2025" ^
   --write-marker
 ```
 
 **Dry run (preview)**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_5_Aug2025" ^
   --dry-run
 ```
 
 **If your mapping CSV is in a nonstandard location**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_5_Aug2025" ^
   --mapping "Campaign_5_Aug2025\letters_mapping.csv"
 ```
 
 **Disaster recovery – rebuild tracker & ZIP tally from all campaign folders**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --rebuild-all ^
   --root "C:\Users\Edit Beluli\Desktop\MailMonkey" ^
   --tracker-path "MasterCampaignTracker\MasterPropertyCampaignTracker.csv"
@@ -252,7 +252,7 @@ python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
 
 **Same, but only consider folders with a marker**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --rebuild-all ^
   --root "C:\Users\Edit Beluli\Desktop\MailMonkey" ^
   --marker-required ^
@@ -262,7 +262,7 @@ python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
 
 **Refresh template sequences & unique campaign numbers (global)**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_6_Aug2025" ^
   --rebuild-templates
 ```
@@ -327,7 +327,7 @@ python BuildMasterCampaignList_v4_MAILZIPFirst_TIMEGAP.py ^
 
 **Generate letters (combined only)**
 ```bat
-python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
+python ..\generate_letters.py ^
   --csv "campaign_master.csv" ^ --outdir "Singles" ^ --combine-out "letters_batch.pdf" ^
   --map-out "letters_mapping.csv" ^ --template-id 101 --skip-singles ^
   --sig-image "..\sig_ed.png" --name "Ed & Albert Beluli" --phone "916-905-7281" --email "eabeluli@gmail.com"
@@ -335,13 +335,13 @@ python ..\direct_mail_batch_por_POR_KEEP_FIXINDENT.py ^
 
 **Finalize (normal)**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --campaign-dir "Campaign_7_Aug2025" --write-marker
 ```
 
 **Rebuild all (disaster recovery)**
 ```bat
-python FinalizeCampaign_TRACKER_STRICT_v5_RECOVER_full_fixdate.py ^
+python finalize_or_rebuild.py ^
   --rebuild-all ^ --root "C:\Users\Edit Beluli\Desktop\MailMonkey" ^
   --tracker-path "MasterCampaignTracker\MasterPropertyCampaignTracker.csv"
 ```
